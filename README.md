@@ -1,4 +1,4 @@
-# 🥙 Shawarma Order System (C# WinForms)
+# 🥙 Shawarma Order System (My First Ever C# WinForms Project!)
 
 A simple C# Windows Forms application that allows users to customize and place a shawarma order.
 The app dynamically calculates the total price based on selected size, type, extras, sauces, and dining option.
