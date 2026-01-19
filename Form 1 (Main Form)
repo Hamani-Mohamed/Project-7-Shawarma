@@ -1,0 +1,237 @@
+ public partial class Form1 : Form
+ {
+     public Form1()
+     {
+         InitializeComponent();
+     }
+
+     private void lblOrder_Click(object sender, EventArgs e)
+     {
+         gbExtras.Enabled = false;
+         gbSauces.Enabled = false;
+         gbShawarma.Enabled = false;
+         gbSize.Enabled = false;
+         gbWhereToEat.Enabled = false;
+         btnOrder.Enabled = false;
+         MessageBox.Show("Thanks for your Order!", "Order Placed!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+     }
+
+     private void lblReset_Click(object sender, EventArgs e)
+     {
+         gbExtras.Enabled = true;
+         gbSauces.Enabled = true;
+         gbShawarma.Enabled = true;
+         gbSize.Enabled = true;
+         gbWhereToEat.Enabled = true;
+         btnOrder.Enabled = true;
+
+         chkGarlicSauce.Checked = false;
+         chkMayonnaise.Checked = false;
+         chkHotSauce.Checked = false;
+         chkOnion.Checked = false;
+         chkTomato.Checked = false;
+         chkCheese.Checked = false;
+         chkLettuce.Checked = false;
+         chkOlives.Checked = false;
+
+         chkChips.Checked = true;
+         rbChicken.Checked = true;
+         rbTakeOut.Checked = true;
+         rbXL.Checked = true;
+
+         lblPrice.Text = price.ToString() + "$";
+     }
+
+     static byte price = 0;
+
+     private bool CalculateNewPrice(bool Check, byte amount)
+     {
+         if (Check == true)
+         {
+             price += amount;
+             lblPrice.Text = price.ToString() + "$";
+             return true;
+         }
+         else
+         {
+             price -= amount;
+             lblPrice.Text = price.ToString() + "$";
+             return false;
+         }
+     }
+
+     private void UpdateExtras()
+     {
+         string Extras = "";
+
+         if (chkOnion.Checked)
+             Extras += "Onion";
+
+         if (chkTomato.Checked)
+             Extras += ", Tomato";
+
+         if (chkLettuce.Checked)
+             Extras += ", Lettuce";
+
+         if (chkOlives.Checked)
+             Extras += ", Olives";
+
+         if (chkChips.Checked)
+             Extras += ", Chips";
+
+         if (chkCheese.Checked)
+             Extras += ", Cheese";
+
+         if (Extras.StartsWith(","))
+         {
+             Extras = Extras.Substring(1, Extras.Length - 1).Trim();
+         }
+
+         if (Extras == "")
+         {
+             Extras = "No Extras";
+         }
+
+         lblExtrasSummary.Text = Extras;
+     }
+
+     private void rbL_CheckedChanged(object sender, EventArgs e)
+     {
+         if (CalculateNewPrice(rbL.Checked, 5))
+         {
+             lblSizeSummary.Text = "Size : L";
+         }
+     }
+
+     private void rbXL_CheckedChanged(object sender, EventArgs e)
+     {
+         if (CalculateNewPrice(rbXL.Checked, 10))
+         {
+             lblSizeSummary.Text = "Size : XL";
+         }
+     }
+
+     private void rbXXL_CheckedChanged(object sender, EventArgs e)
+     {
+         if (CalculateNewPrice(rbXXL.Checked, 15))
+         {
+             lblSizeSummary.Text = "Size : XXL";
+         }
+     }
+
+     private void chkGarlicSauce_CheckedChanged(object sender, EventArgs e)
+     {
+         CalculateNewPrice(chkGarlicSauce.Checked, 1);
+         lblGarlic.Visible = chkGarlicSauce.Checked;
+     }
+
+     private void chkMayonnaise_CheckedChanged(object sender, EventArgs e)
+     {
+         CalculateNewPrice(chkMayonnaise.Checked, 1);
+         lblMayonnaise.Visible = chkMayonnaise.Checked;
+     }
+
+     private void chkHotSauce_CheckedChanged(object sender, EventArgs e)
+     {
+         CalculateNewPrice(chkHotSauce.Checked, 1);
+         lblHotSauce.Visible = chkHotSauce.Checked;
+     }
+
+     private void chkOnion_CheckedChanged(object sender, EventArgs e)
+     {
+         CalculateNewPrice(chkOnion.Checked, 2);
+         UpdateExtras();
+     }
+
+     private void chkTomato_CheckedChanged(object sender, EventArgs e)
+     {
+         CalculateNewPrice(chkTomato.Checked, 2);
+         UpdateExtras();
+     }
+
+     private void chkLettuce_CheckedChanged(object sender, EventArgs e)
+     {
+         CalculateNewPrice(chkLettuce.Checked, 2);
+         UpdateExtras();
+     }
+
+     private void chkOlives_CheckedChanged(object sender, EventArgs e)
+     {
+         CalculateNewPrice(chkOlives.Checked, 2);
+         UpdateExtras();
+     }
+
+     private void chkChips_CheckedChanged(object sender, EventArgs e)
+     {
+         CalculateNewPrice(chkChips.Checked, 5);
+         UpdateExtras();
+     }
+
+     private void chkCheese_CheckedChanged(object sender, EventArgs e)
+     {
+         CalculateNewPrice(chkCheese.Checked, 5);
+         UpdateExtras();
+     }
+
+     private void rbEatIn_CheckedChanged(object sender, EventArgs e)
+     {
+         if (CalculateNewPrice(rbEatIn.Checked, 0))
+         {
+             lblWhereToEatSummary.Text = "Where To Eat : Eat In";
+         }
+     }
+
+     private void rbTakeOut_CheckedChanged(object sender, EventArgs e)
+     {
+         if (CalculateNewPrice(rbTakeOut.Checked, 0))
+         {
+             lblWhereToEatSummary.Text = "Where To Eat : Take Out";
+         }
+     }
+
+     private void rbDelivery_CheckedChanged(object sender, EventArgs e)
+     {
+         if (CalculateNewPrice(rbDelivery.Checked, 18))
+         {
+             lblWhereToEatSummary.Text = "Where To Eat : Delivery";
+         }
+     }
+
+     private void rbChicken_CheckedChanged(object sender, EventArgs e)
+     {
+         if (CalculateNewPrice(rbChicken.Checked, 5))
+         {
+             lblShawarmaSummary.Text = "Shawarma : Chicken";
+         }
+     }
+
+     private void rbBeef_CheckedChanged(object sender, EventArgs e)
+     {
+         if (CalculateNewPrice(rbBeef.Checked, 10))
+         {
+             lblShawarmaSummary.Text = "Shawarma : Beef";
+         }
+     }
+
+     private void rbMix_CheckedChanged(object sender, EventArgs e)
+     {
+         if (CalculateNewPrice(rbMix.Checked, 15))
+         {
+             lblShawarmaSummary.Text = "Shawarma : Mix";
+         }
+     }
+
+     private void btnGoBack_Click(object sender, EventArgs e)
+     {
+         price = 0;
+         this.Close();
+     }
+
+     private void Form1_Load(object sender, EventArgs e)
+     {
+         price = 0;
+         rbTakeOut.Checked = true;
+         rbChicken.Checked = true;
+         rbXL.Checked = true;
+         chkChips.Checked = true;
+     }
